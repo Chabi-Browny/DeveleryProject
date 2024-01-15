@@ -5,21 +5,38 @@
 {% block body %}
     <div class="content-container row justify-content-md-center">
         <div class="col-6">
-            <form method="post" action="{{ absolute_url('/submitContact'|escape) }}" class="form-container mt-5">
-                <div class="mb-3">
-                    <label for="name-field" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name-field">
-                </div>
-                <div class="mb-3">
-                    <label for="email-field" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email-field">
-                </div>
-                <div class="mb-3">
-                    <label for="message-field" class="form-label">Message</label>
-                    <textarea class="form-control" id="message-field" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>            
+            <div class="row">
+                <form method="post" action="{{ absolute_url('/submitContact'|escape) }}" class="form-container mt-5">
+                    <div class="mb-3">
+                        <label for="name-field" class="form-label">Neved</label>
+                        <input name="cName" type="text" class="form-control" id="name-field">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email-field" class="form-label">Email címed</label>
+                        <input name="cEmail" type="email" class="form-control" id="email-field">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-field" class="form-label">Üzenet szövege</label>
+                        <textarea name="cMessage" class="form-control" id="message-field" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Küldés</button>
+                </form>
+            </div>
+            <div class="row">
+                {% for flashObjects in app.flashes('errors') %}
+                    {% for flashObj in flashObjects %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ flashObj.message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                
+                {% for flashMessage in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

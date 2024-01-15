@@ -21,7 +21,7 @@ final class Version20240111150243 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $table = $schema->createTable('contact');
-        $table->addColumn('id', 'bigint', ['autoincrement' => true]);
+        $table->addColumn('id', 'bigint', ['autoincrement' => true, 'unsigned' => true]);
         $table->addColumn('name', 'string', ['length' => 125]);
         $table->addColumn('email', 'string', ['length' => 125]);
         $table->addColumn('message', 'string', ['length' => 255]);

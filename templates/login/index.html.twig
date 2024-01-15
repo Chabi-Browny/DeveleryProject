@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LoginController!{% endblock %}
+
+{% block body %}
+    <div class="content-container row justify-content-md-center">
+        <div class="col-6">
+            <div class="row">
+                <form method="post" action="{{ absolute_url('/login'|escape) }}" class="form-container mt-5">
+                    <div class="mb-3">
+                        <label for="name-field" class="form-label">Név</label>
+                        <input name="name" type="text" class="form-control" id="name-field">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pw-field" class="form-label">Jelszó</label>
+                        <input name="pass" type="password" class="form-control" id="pw-field">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Küldés</button>
+                </form>
+            </div>
+            <div class="row">
+                {% for flashObjects in app.flashes('errors') %}
+                    {% for flashObj in flashObjects %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ flashObj.message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
