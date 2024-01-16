@@ -13,12 +13,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ absolute_url('/contact') }}">Kapcsolat</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ absolute_url('/login') }}">Belépés</a>
-                    </li>
-                    {#<li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>#}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ absolute_url('/messageList') }}">Üzenetek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ absolute_url('/logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ absolute_url('/login') }}">Belépés</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

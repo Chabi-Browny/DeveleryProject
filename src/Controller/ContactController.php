@@ -63,4 +63,20 @@ class ContactController extends BaseController
         return $this->redirectToRoute('contact');
     }
 
+    #[Route('/messageList') ]
+    public function listMessages(ContactRepository $contactRepo)
+    {
+        // checking authorization
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        // get all message
+        $messages = $contactRepo->findAll();
+
+        ////////pagination...
+
+        return $this->renderer('contact/messagesList.html.twig', [
+            'messages' => $messages ///(array)$messages
+        ]);
+
+    }
+
 }
