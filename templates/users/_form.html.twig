@@ -1,0 +1,46 @@
+{#{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}#}
+<h4>Az ürlap átdolgozás alatt.</h4>
+<h5>Info a commitban.</h5>
+
+{#<div class="col-6 mt-5">
+    <div class="row">
+        <form method="post" action="{{ path('app_users_new'|escape) }}" class="form-container">
+            <div class="mb-3">
+                <label for="name-field" class="form-label">Név</label>
+                <input name="_username" type="text" class="form-control" id="name-field">
+            </div>
+            <div class="mb-3">
+                <label for="pw-field" class="form-label">Jelszó</label>
+                <input name="_password" type="password" class="form-control" id="pw-field">
+            </div>
+            <div class="mb-3">
+                <label for="message-field" class="form-label">Szerepkör</label>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Mentés</button>
+        </form>
+    </div>
+    <div class="row">
+        {% for flashObjects in app.flashes('errors') %}
+            {% for flashObj in flashObjects %}
+                <div class="alert alert-danger" role="alert">
+                    {{ flashObj.message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% for flashMessage in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </div>
+</div>#}
