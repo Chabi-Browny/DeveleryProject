@@ -3,10 +3,10 @@
 {% block title %}Hello ContactController!{% endblock %}
 
 {% block body %}
-    <div class="content-container row justify-content-md-center">
-        <div class="col-6">
+        <div class="col-6 mt-5">
+            <h3>Kapcsolatfelvétel</h3> 
             <div class="row">
-                <form method="post" action="{{ absolute_url('/submitContact'|escape) }}" class="form-container mt-5">
+                <form method="post" action="{{ absolute_url('/submitContact'|escape) }}" class="form-container">
                     <div class="mb-3">
                         <label for="name-field" class="form-label">Neved</label>
                         <input name="cName" type="text" class="form-control" id="name-field">
@@ -38,5 +38,4 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
 {% endblock %}

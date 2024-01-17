@@ -3,34 +3,40 @@
 {% block title %}Hello ContactController!{% endblock %}
 
 {% block body %}
-    <div class="content-container row justify-content-md-center">
-        <div class="col-6">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Message</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if messages is defined %}
-                        {% for message in messages %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ message.name }}</td>
-                            <td>{{ message.email }}</td>
-                            <td>{{ message.message }}</td>
-                        </tr>
-                        {% endfor %}
-                    {% else %}
-                        <tr>
-                            <td colspan="4">Nincs megjeleníthető üzenet</td>
-                        </tr>
-                    {% endif %}
-                </tbody>
-            </table>
+        <h3>Üzenetek Lista</h3>
+        <div class="col-6 mt-5">
+            <div class="row">
+                {{ pagi | raw }}
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if messages is defined %}
+                                {% for message in messages %}
+                                    <tr>
+                                        <th scope="row">{{ message.id }}</th>
+                                        <td>{{ message.name }}</td>
+                                        <td>{{ message.email }}</td>
+                                        <td>{{ message.message }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">Nincs megjeleníthető üzenet</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
 {% endblock %}

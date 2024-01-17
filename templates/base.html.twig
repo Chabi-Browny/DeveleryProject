@@ -18,7 +18,9 @@
             {{ include('pageParts/header.html.twig') }}
         </header>
         <main class="container">
-            {% block body %}{% endblock %}
+            <div class="content-container row justify-content-md-center">
+                {% block body %}{% endblock %}
+            </div>
         </main>
     </body>
 </html>

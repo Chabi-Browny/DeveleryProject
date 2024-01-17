@@ -10,7 +10,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends BaseController
 {
-//    #[Route('/login', name: 'appLogin', methods: ['get'])]
     #[Route('/login', name: 'appLogin')]
     public function index(AuthenticationUtils $authenticator): Response
     {
