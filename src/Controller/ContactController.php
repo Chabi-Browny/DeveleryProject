@@ -65,7 +65,7 @@ class ContactController extends BaseController
         return $this->redirectToRoute('contact');
     }
 
-    #[Route('/messageList/{page}' , requirements: ['page' => '\d+']) ]
+    #[Route('/messageList/{page}' , requirements: ['page' => '\d+'], name:'messageList') ]
     public function listMessages(Environment $twig, ContactRepository $contactRepo, int $page = 1)
     {
         // checking authorization
@@ -76,17 +76,15 @@ class ContactController extends BaseController
         $paginateServ = new PaginationService($twig);
 
         $paginateServ->initPagination(
+            'messageList',
             $page,
             $contactRepo->count([]),
             $limit
         );
 
-        // get all message by the limitations
-        $messagesResult = $contactRepo->findBy([], null, $paginateServ->getLimit(), $paginateServ->getOffset($page));
-
         return $this->renderer('contact/messagesList.html.twig', [
-            'messages' => $messagesResult,
-            'pagi' => $paginateServ->renderPagi($messagesResult)
+            'messages' => $contactRepo->findBy([], null, $paginateServ->getLimit(), $paginateServ->getOffset($page)),
+            'pagi' => $paginateServ->renderPagi()
         ]);
 
     }

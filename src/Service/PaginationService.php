@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Helper\PaginationHelper;
 use Twig\Environment;
 /**
  * Description of PaginationService
@@ -12,7 +11,11 @@ class PaginationService
     const DEFAULT_LIMIT = 2;
     const FIRST_PAGE_NUMBER = 1;
 
-    protected $pagiHelpr;
+    /**
+     * @desc - the basic route of the links
+     * @var string
+     */
+    protected $baseRouteName;
 
     /**
      * @desc - This is the Offset to
@@ -35,8 +38,9 @@ class PaginationService
     public function __construct( private Environment $twig ){}
 
     /**/
-    public function initPagination(int $current, int $total, int $limit = self::DEFAULT_LIMIT)
+    public function initPagination(string $baseRouteName, int $current, int $total, int $limit = self::DEFAULT_LIMIT)
     {
+        $this->baseRouteName = $baseRouteName;
         $this->currentPage = $current;
         $this->total = $total;
         $this->limit = $limit;
@@ -114,7 +118,7 @@ class PaginationService
     }
 
     /**/
-    public function renderPagi(array $queryResult)
+    public function renderPagi()
     {
         return $this->twig->render('pageParts/pagination.html.twig', [
             'hasNext'     => $this->hasNext(),
@@ -123,7 +127,8 @@ class PaginationService
             'previous'    => $this->getPrevious(),
             'first'       => $this->getFirst(),
             'last'        => $this->getLast(),
-            'links'       => $this->getPageLinks()
+            'links'       => $this->getPageLinks(),
+            'routeName'   => $this->baseRouteName
         ]);
     }
 }

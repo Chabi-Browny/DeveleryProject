@@ -4,36 +4,42 @@
 
 {% block body %}
     <div class="col mt-5">
-        <h1>Users index</h1>
+        <h3>Felhasználók lista</h3>
 
-        <a class="mb-2" href="{{ path('app_users_new') }}">Create new</a>
-        
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Uname</th>
-                    <th>Roles</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.uname }}</td>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                    <td>
-                        <a href="{{ path('app_users_show', {'id': user.id}) }}">show</a>
-                        <a href="{{ path('app_users_edit', {'id': user.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="row">
+            {{ pagi | raw }}
+        </div>
+        <div class="row">
+            <div class="col">
+                <a class="mb-2" href="{{ path('app_users_new') }}">Felhasználó Létrehozása</a>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Név</th>
+                            <th>Szerepkör</th>
+                            <th>Opciók</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.uname }}</td>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_users_show', {'id': user.id}) }}" class="btn btn-outline-primary">Mutat</a>
+                                <a href="{{ path('app_users_edit', {'id': user.id}) }}" class="btn btn-outline-primary">Módosít</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Nincs felhasználó</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>                
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Helper\UsersHelper;
 use App\Repository\UsersRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -10,6 +12,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    const DEFAULT_ROLES = [
+       'ROLE_USER'  => 'ROLE_USER',
+       'ROLE_ADMIN' => 'ROLE_ADMIN'
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -59,11 +66,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        return $this->roles;
+    }
 
-        return array_unique($roles);
+    public function getDefaultRoles(): array
+    {
+        return self::DEFAULT_ROLES;
     }
 
     public function setRoles(array $roles): static
@@ -83,7 +91,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPassword(string $password): static
     {
-        $this->password = $password;
+        $this->password = UsersHelper::getHashedPassword($password);
 
         return $this;
     }
@@ -96,5 +104,5 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-    
+
 }
