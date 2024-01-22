@@ -19,6 +19,6 @@ class UsersHelper
 
         $hasher = $hasherFactory->getPasswordHasher('common');
 
-        return $hasher->hash('password');
+        return $hasher->hash($plainPassword);
     }
 }
